@@ -5,10 +5,22 @@ using Telegram.Bot.Types;
 
 namespace ReminderBot.Models.Commands
 {
+    /// <summary>
+    /// Строгая команда добавления записи.
+    /// </summary>
     public class StructuralRemindCommand : CommandBase
     {
+        /// <summary>
+        /// Имя команды.
+        /// </summary>
         public override string Name => @"/new ";
 
+        /// <summary>
+        /// Выполнить команду.
+        /// </summary>
+        /// <param name="message">Сообщение.</param>
+        /// <param name="client">Клиент бота.</param>
+        /// <returns>Выполнение асинхронных операций.</returns>
         public override async Task Execute(Message message, TelegramBotClient botClient)
         {
             var text = message.Text.Remove(0, Name.Length);

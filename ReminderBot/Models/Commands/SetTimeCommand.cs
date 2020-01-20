@@ -4,10 +4,22 @@ using Telegram.Bot.Types;
 
 namespace ReminderBot.Models.Commands
 {
+    /// <summary>
+    /// Команда установки времени для записи.
+    /// </summary>
     public class SetTimeCommand : CommandBase
     {
+        /// <summary>
+        /// Имя команды.
+        /// </summary>
         public override string Name => @"/time ";
 
+        /// <summary>
+        /// Выполнить команду.
+        /// </summary>
+        /// <param name="message">Сообщение.</param>
+        /// <param name="client">Клиент бота.</param>
+        /// <returns>Выполнение асинхронных операций.</returns>
         public override async Task Execute(Message message, TelegramBotClient botClient)
         {
             var time = message.Text.Remove(0, Name.Length);

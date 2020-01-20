@@ -5,27 +5,60 @@ using System.Threading;
 
 namespace ReminderBot.Models
 {
+    /// <summary>
+    /// Таймер напоминаний.
+    /// </summary>
     public sealed class ReminderTimer
     {
+        /// <summary>
+        /// Максимальное количество тиков таймера до сброса.
+        /// </summary>
         private const uint MaxTick = uint.MaxValue / 2;
 
-        private static readonly Lazy<ReminderTimer> lazy =
+        /// <summary>
+        /// Объект таймера ленивой загрузкой.
+        /// </summary>
+        private static readonly Lazy<ReminderTimer> _lazy =
             new Lazy<ReminderTimer>(() => new ReminderTimer());
 
+        /// <summary>
+        /// Счетчик тиков таймера.
+        /// </summary>
         private uint _tickCount = 0;
 
+        /// <summary>
+        /// Актуальные записи напоминаний.
+        /// </summary>
         private List<ReminderRecord> _records = new List<ReminderRecord>();
 
+        /// <summary>
+        /// Старые записи напоминаний.
+        /// </summary>
         private List<ReminderRecord> _oldRecords = new List<ReminderRecord>();
 
+        /// <summary>
+        /// Сообщение для новой записи.
+        /// </summary>
         private string _newMessage;
 
+        /// <summary>
+        /// Актуальные записи напоминаний.
+        /// </summary>
         public IReadOnlyList<ReminderRecord> Records => _records.AsReadOnly();
         
+        /// <summary>
+        /// Старые записи напоминаний.
+        /// </summary>
         public IReadOnlyList<ReminderRecord> OldRecords => _oldRecords.AsReadOnly();
 
-        public static ReminderTimer Source { get { return lazy.Value; } }
+        /// <summary>
+        /// Объект таймера.
+        /// </summary>
+        public static ReminderTimer Source { get { return _lazy.Value; } }
 
+        /// <summary>
+        /// Приватный конструктор.
+        /// </summary>
         private ReminderTimer()
         {
             TimerCallback timerCallback = new TimerCallback(CheckTimer);
@@ -33,6 +66,12 @@ namespace ReminderBot.Models
             var timer = new Timer(timerCallback, null, 0, 1000);
         }
 
+        /// <summary>
+        /// Добавить запись.
+        /// </summary>
+        /// <param name="chatId">ID чата с ботом.</param>
+        /// <param name="ticks">Число тиков таймера до напоминания.</param>
+        /// <param name="message">Сообщение.</param>
         public void AddRecord(long chatId, uint ticks, string message)
         {
             _records.Add(new ReminderRecord(chatId, ticks + _tickCount, message));
@@ -49,11 +88,20 @@ namespace ReminderBot.Models
             }
         }
 
+        /// <summary>
+        /// Добавить сообщение для новой записи.
+        /// </summary>
+        /// <param name="message">Сообщение.</param>
         public void AddMessageForNewRecord(string message)
         {
             _newMessage = message;
         }
 
+        /// <summary>
+        /// Добавить время для новой записи.
+        /// </summary>
+        /// <param name="chatId">ID чата с ботом.</param>
+        /// <param name="ticks">Число тиков таймера до напоминания.</param>
         public async void AddTimeForNewRecord(long chatId, uint ticks)
         {
             if (_newMessage != null)
@@ -67,6 +115,10 @@ namespace ReminderBot.Models
             }
         }
 
+        /// <summary>
+        /// Удалить запись.
+        /// </summary>
+        /// <param name="index">Индекс записи.</param>
         public void RemoveRecord(int index)
         {
             var currentRecord = _records.ElementAt(index);
@@ -74,6 +126,10 @@ namespace ReminderBot.Models
             _oldRecords.Add(currentRecord);
         }
 
+        /// <summary>
+        /// Проверить напоминания.
+        /// </summary>
+        /// <param name="obj">Пустой параметр.</param>
         private async void CheckTimer(object obj)
         {
             _tickCount++;

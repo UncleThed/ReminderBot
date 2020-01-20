@@ -4,10 +4,22 @@ using Telegram.Bot.Types;
 
 namespace ReminderBot.Models.Commands
 {
+    /// <summary>
+    /// Команда получения листинга всех напоминаний.
+    /// </summary>
     public class GetListingCommand : CommandBase
     {
+        /// <summary>
+        /// Имя команды.
+        /// </summary>
         public override string Name => @"/listing";
 
+        /// <summary>
+        /// Выполнить команду.
+        /// </summary>
+        /// <param name="message">Сообщение.</param>
+        /// <param name="client">Клиент бота.</param>
+        /// <returns>Выполнение асинхронных операций.</returns>
         public override async Task Execute(Message message, TelegramBotClient botClient)
         {
             var text = message.Text;
