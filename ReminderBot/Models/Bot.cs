@@ -49,6 +49,7 @@ namespace ReminderBot.Models
 
             _botClient = new TelegramBotClient(AppSettings.Key);
             string hook = string.Format(AppSettings.Url, "api/message/update");
+
             await _botClient.SetWebhookAsync(hook);
 
             return _botClient;

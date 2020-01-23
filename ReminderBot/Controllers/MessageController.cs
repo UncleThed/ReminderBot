@@ -6,8 +6,8 @@ using Telegram.Bot.Types;
 namespace ReminderBot.Controllers
 {
     [ApiController]
-    [Route("[api/message/update]")]
-    public class MessageController : ControllerBase
+    [Route("api/message/update")]
+    public class MessageController : Controller
     {
 
         // GET api/values

@@ -8,7 +8,7 @@
         /// <summary>
         /// Адресс.
         /// </summary>
-        public static string Url { get; set; } = "https://URL:443/{0}";
+        public static string Url { get; set; } = "<Url>:443/{0}";
 
         /// <summary>
         /// Токен бота.
