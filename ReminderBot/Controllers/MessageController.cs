@@ -2,13 +2,21 @@
 using ReminderBot.Models;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Microsoft.Extensions.Logging;
 
 namespace ReminderBot.Controllers
 {
     [ApiController]
     [Route("api/message/update")]
-    public class MessageController : Controller
+    public class MessageController : ControllerBase
     {
+
+        private readonly ILogger<MessageController> _logger;
+
+        public MessageController(ILogger<MessageController> logger)
+        {
+            _logger = logger;
+        }
 
         // GET api/values
         [HttpGet]

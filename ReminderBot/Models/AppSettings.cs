@@ -6,9 +6,10 @@
     public static class AppSettings
     {
         /// <summary>
-        /// Адресс.
+        /// Адрес.
         /// </summary>
-        public static string Url { get; set; } = "<Url>:443/{0}";
+        public static string Url { get; set; } = "nukumatau.tk/{0}";
+        
 
         /// <summary>
         /// Токен бота.
