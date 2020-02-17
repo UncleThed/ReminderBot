@@ -75,7 +75,7 @@ namespace ReminderBot.Models
         public void AddRecord(long chatId, uint ticks, string message)
         {
             _records.Add(new ReminderRecord(chatId, ticks + _tickCount, message));
-            _records.OrderBy(r => r.Ticks);
+            _records = _records.OrderBy(r => r.Ticks).ToList();
 
             if (_tickCount == MaxTick)
             {
@@ -137,7 +137,7 @@ namespace ReminderBot.Models
             if (_records.Any())
             {
                 var currentRecord = _records.First();
-                if (currentRecord.Ticks == _tickCount)
+                if (currentRecord.Ticks <= _tickCount)
                 {
                     var botClient = await Bot.GetBotClientAsync();
                     await botClient.SendTextMessageAsync(currentRecord.ChatId, $"Ты просил меня напомнить тебе {currentRecord.Message}");

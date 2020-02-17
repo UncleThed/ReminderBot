@@ -30,17 +30,17 @@ namespace ReminderBot.Models.Commands
             if (text == "/listing")
             {
                 var records = timer.Records;
-                for (var i = 0; i < timer.OldRecords.Count; i++)
+                for (var i = 0; i < records.Count; i++)
                 {
-                    await botClient.SendTextMessageAsync(chatId, $"{i}. {records[i].Message} | {records[i].Ticks} seconds");
+                    await botClient.SendTextMessageAsync(chatId, $"{i + 1}. {records[i].Message} | {records[i].Ticks} seconds");
                 }
             }
             else if (text == "/listing past records")
             {
                 var records = timer.OldRecords;
-                for (var i = 0; i < timer.OldRecords.Count; i++)
+                for (var i = 0; i < records.Count; i++)
                 {
-                    await botClient.SendTextMessageAsync(chatId, $"{i}. {records[i].Message}");
+                    await botClient.SendTextMessageAsync(chatId, $"{i + 1}. {records[i].Message}");
                 }
             }
             else

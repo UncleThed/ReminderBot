@@ -8,7 +8,7 @@
         /// <summary>
         /// Адрес.
         /// </summary>
-        public static string Url { get; set; } = "nukumatau.tk/{0}";
+        public static string Url { get; set; } = "https://nukumatau.tk/{0}";
         
 
         /// <summary>
